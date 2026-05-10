@@ -1,6 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { z } from "zod";
 import { useProducts } from "../hooks/useProducts";
+import type { Product } from "../types";
 import { ProductThumb } from "../ui/ProductThumb";
 
 const paramsSchema = z.object({
@@ -24,11 +25,21 @@ export const Route = createFileRoute("/products/page/{-$page}")({
 function RouteComponent() {
   const { page = 1 } = Route.useParams();
   const { data: productsResponse } = useProducts({ page });
+  const navigate = useNavigate();
+  const handleProductClick = (product: Product) => {
+    navigate({ to: "/product/$productId", params: { productId: product.id } });
+  };
   return (
     <div className="grow flex flex-col">
       <div className="flex flex-wrap justify-center gap-4">
         {productsResponse.products.map((product) => (
-          <ProductThumb key={product.id} product={product}></ProductThumb>
+          <button
+            key={product.id}
+            type="button"
+            onClick={() => handleProductClick(product)}
+          >
+            <ProductThumb key={product.id} product={product}></ProductThumb>
+          </button>
         ))}
       </div>
     </div>

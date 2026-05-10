@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProductProductIdRouteImport } from './routes/product.$productId'
 import { Route as ProductsPageChar123PageChar125RouteImport } from './routes/products.page.{-$page}'
 
 const AboutRoute = AboutRouteImport.update({
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProductProductIdRoute = ProductProductIdRouteImport.update({
+  id: '/product/$productId',
+  path: '/product/$productId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductsPageChar123PageChar125Route =
   ProductsPageChar123PageChar125RouteImport.update({
     id: '/products/page/{-$page}',
@@ -33,30 +39,39 @@ const ProductsPageChar123PageChar125Route =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/product/$productId': typeof ProductProductIdRoute
   '/products/page/{-$page}': typeof ProductsPageChar123PageChar125Route
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/product/$productId': typeof ProductProductIdRoute
   '/products/page/{-$page}': typeof ProductsPageChar123PageChar125Route
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/product/$productId': typeof ProductProductIdRoute
   '/products/page/{-$page}': typeof ProductsPageChar123PageChar125Route
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/products/page/{-$page}'
+  fullPaths: '/' | '/about' | '/product/$productId' | '/products/page/{-$page}'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/products/page/{-$page}'
-  id: '__root__' | '/' | '/about' | '/products/page/{-$page}'
+  to: '/' | '/about' | '/product/$productId' | '/products/page/{-$page}'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/product/$productId'
+    | '/products/page/{-$page}'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ProductProductIdRoute: typeof ProductProductIdRoute
   ProductsPageChar123PageChar125Route: typeof ProductsPageChar123PageChar125Route
 }
 
@@ -76,6 +91,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/product/$productId': {
+      id: '/product/$productId'
+      path: '/product/$productId'
+      fullPath: '/product/$productId'
+      preLoaderRoute: typeof ProductProductIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/products/page/{-$page}': {
       id: '/products/page/{-$page}'
       path: '/products/page/{-$page}'
@@ -89,6 +111,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ProductProductIdRoute: ProductProductIdRoute,
   ProductsPageChar123PageChar125Route: ProductsPageChar123PageChar125Route,
 }
 export const routeTree = rootRouteImport
