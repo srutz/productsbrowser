@@ -1,8 +1,6 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
-import { useProducts } from "../hooks/useProducts";
-import type { Product } from "../types";
-import { ProductThumb } from "../ui/ProductThumb";
+import { ProductsGrid } from "../ui/ProductsGrid";
 
 const paramsSchema = z.object({
   page: z.coerce
@@ -24,24 +22,5 @@ export const Route = createFileRoute("/products/page/{-$page}")({
 // eslint-disable-next-line react-refresh/only-export-components
 function RouteComponent() {
   const { page = 1 } = Route.useParams();
-  const { data: productsResponse } = useProducts({ page });
-  const navigate = useNavigate();
-  const handleProductClick = (product: Product) => {
-    navigate({ to: "/product/$productId", params: { productId: product.id } });
-  };
-  return (
-    <div className="grow flex flex-col">
-      <div className="flex flex-wrap justify-center gap-4">
-        {productsResponse.products.map((product) => (
-          <button
-            key={product.id}
-            type="button"
-            onClick={() => handleProductClick(product)}
-          >
-            <ProductThumb key={product.id} product={product}></ProductThumb>
-          </button>
-        ))}
-      </div>
-    </div>
-  );
+  return <ProductsGrid page={page} />;
 }

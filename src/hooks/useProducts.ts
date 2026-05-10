@@ -19,6 +19,6 @@ export function useProducts({ page }: { page: number }) {
   return useSuspenseQuery({
     queryKey: ["products", page],
     queryFn: () => getProducts({ page }),
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    staleTime: 5 * 60 * 1000, // 5 minutes,
   });
 }
