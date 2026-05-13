@@ -21,4 +21,9 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  test: {
+    environment: "jsdom",      // Browser-ähnliche Umgebung
+    globals:     true,         // describe, it, expect ohne import
+    setupFiles:  ["./src/setup.ts"],
+  },
 });

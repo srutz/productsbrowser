@@ -5,6 +5,7 @@ import "./index.css";
 import { routeTree } from "./routeTree.gen.ts";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ConfirmDialog } from "./ui/ConfirmDialog.tsx";
+import { renderToString } from 'react-dom/server';
 
 // Set up a Router instance
 const router = createRouter({
@@ -38,3 +39,4 @@ createRoot(document.getElementById("root")!).render(
       <ConfirmDialog />
     </QueryClientProvider>
 );
+
