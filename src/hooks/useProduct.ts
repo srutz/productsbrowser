@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import type { Product } from "../types";
 
 export async function getProduct(id: number): Promise<Product> {
@@ -11,8 +11,8 @@ export async function getProduct(id: number): Promise<Product> {
   return response.json();
 }
 
-export function useSuspenseProduct(id: number) {
-  return useQuery({
+export function useProduct(id: number) {
+  return useSuspenseQuery({
     queryKey: ["product", id],
     queryFn: () => getProduct(id),
     staleTime: 5 * 60 * 1000, // 5 minutes
