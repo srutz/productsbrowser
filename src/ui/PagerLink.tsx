@@ -1,17 +1,17 @@
-import { useNavigate } from "@tanstack/react-router";
 import { useTransition } from "react";
 
 export function PagerLink({
   page,
   disabled,
+  onNavigate,
   children,
 }: {
   page: number;
   disabled: boolean;
+  onNavigate: (page: number) => void;
   children: React.ReactNode;
 }) {
   const [_, startTransition] = useTransition();
-  const navigate = useNavigate();
   const className = "px-3 py-1 rounded border border-gray-300";
   if (disabled) {
     return (
@@ -24,7 +24,7 @@ export function PagerLink({
     <button
       onClick={() => {
         startTransition(() => {
-          navigate({ to: "/products/page/{-$page}", params: { page } });
+          onNavigate(page);
         });
       }}
       className={`${className} hover:bg-gray-100`}

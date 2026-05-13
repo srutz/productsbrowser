@@ -24,7 +24,13 @@ export function ProductsGrid({ page }: { page: number }) {
           </button>
         ))}
       </div>
-      <Pager page={page} totalPages={totalPages} />
+      <Pager
+        page={page}
+        totalPages={totalPages}
+        onNavigate={(p) =>
+          navigate({ to: "/products/page/{-$page}", params: { page: p } })
+        }
+      />
     </div>
   );
 }

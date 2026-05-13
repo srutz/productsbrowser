@@ -9,6 +9,9 @@ export function Menubar() {
       <Link to="/products/page/{-$page}" params={{ page: 1 }}>
         Products
       </Link>
+      <Link to="/recipes/page/{-$page}" params={{ page: 1 }}>
+        Recipes
+      </Link>
       <Link to="/about">About</Link>
     </div>
   );

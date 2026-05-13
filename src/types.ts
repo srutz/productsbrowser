@@ -53,6 +53,32 @@ const ProductsRequestSchema = z.object({
   products: z.array(ProductSchema),
 });
 
+const RecipeSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  ingredients: z.array(z.string()),
+  instructions: z.array(z.string()),
+  prepTimeMinutes: z.number(),
+  cookTimeMinutes: z.number(),
+  servings: z.number(),
+  difficulty: z.string(),
+  cuisine: z.string(),
+  caloriesPerServing: z.number(),
+  tags: z.array(z.string()),
+  userId: z.number(),
+  image: z.string(),
+  rating: z.number(),
+  reviewCount: z.number(),
+  mealType: z.array(z.string()),
+});
+
+const RecipesRequestSchema = z.object({
+  total: z.number(),
+  skip: z.number(),
+  limit: z.number(),
+  recipes: z.array(RecipeSchema),
+});
+
 type ProductDimensions = z.infer<typeof ProductDimensionsSchema>;
 type ProductReview = z.infer<typeof ProductReviewSchema>;
 type ProductMeta = z.infer<typeof ProductMetaSchema>;
@@ -60,16 +86,23 @@ type Product = z.infer<typeof ProductSchema>;
 
 type ProductsRequest = z.infer<typeof ProductsRequestSchema>;
 
+type Recipe = z.infer<typeof RecipeSchema>;
+type RecipesRequest = z.infer<typeof RecipesRequestSchema>;
+
 export {
   ProductDimensionsSchema,
   ProductMetaSchema,
   ProductReviewSchema,
   ProductSchema,
   ProductsRequestSchema,
+  RecipeSchema,
+  RecipesRequestSchema,
   type Product,
   type ProductDimensions,
   type ProductMeta,
   type ProductReview,
-  type ProductsRequest
+  type ProductsRequest,
+  type Recipe,
+  type RecipesRequest
 };
 
