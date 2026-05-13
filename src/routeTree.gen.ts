@@ -13,7 +13,7 @@ import { Route as ProductsRouteImport } from './routes/products'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProductsIndexRouteImport } from './routes/products.index'
-import { Route as TaskTaskIdRouteImport } from './routes/task.$taskId'
+import { Route as QuoteQuoteIdRouteImport } from './routes/quote.$quoteId'
 import { Route as ProductProductIdRouteImport } from './routes/product.$productId'
 import { Route as ProductsPageChar123PageChar125RouteImport } from './routes/products.page.{-$page}'
 
@@ -37,9 +37,9 @@ const ProductsIndexRoute = ProductsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ProductsRoute,
 } as any)
-const TaskTaskIdRoute = TaskTaskIdRouteImport.update({
-  id: '/task/$taskId',
-  path: '/task/$taskId',
+const QuoteQuoteIdRoute = QuoteQuoteIdRouteImport.update({
+  id: '/quote/$quoteId',
+  path: '/quote/$quoteId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProductProductIdRoute = ProductProductIdRouteImport.update({
@@ -59,7 +59,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/products': typeof ProductsRouteWithChildren
   '/product/$productId': typeof ProductProductIdRoute
-  '/task/$taskId': typeof TaskTaskIdRoute
+  '/quote/$quoteId': typeof QuoteQuoteIdRoute
   '/products/': typeof ProductsIndexRoute
   '/products/page/{-$page}': typeof ProductsPageChar123PageChar125Route
 }
@@ -67,7 +67,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/product/$productId': typeof ProductProductIdRoute
-  '/task/$taskId': typeof TaskTaskIdRoute
+  '/quote/$quoteId': typeof QuoteQuoteIdRoute
   '/products': typeof ProductsIndexRoute
   '/products/page/{-$page}': typeof ProductsPageChar123PageChar125Route
 }
@@ -77,7 +77,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/products': typeof ProductsRouteWithChildren
   '/product/$productId': typeof ProductProductIdRoute
-  '/task/$taskId': typeof TaskTaskIdRoute
+  '/quote/$quoteId': typeof QuoteQuoteIdRoute
   '/products/': typeof ProductsIndexRoute
   '/products/page/{-$page}': typeof ProductsPageChar123PageChar125Route
 }
@@ -88,7 +88,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/products'
     | '/product/$productId'
-    | '/task/$taskId'
+    | '/quote/$quoteId'
     | '/products/'
     | '/products/page/{-$page}'
   fileRoutesByTo: FileRoutesByTo
@@ -96,7 +96,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/product/$productId'
-    | '/task/$taskId'
+    | '/quote/$quoteId'
     | '/products'
     | '/products/page/{-$page}'
   id:
@@ -105,7 +105,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/products'
     | '/product/$productId'
-    | '/task/$taskId'
+    | '/quote/$quoteId'
     | '/products/'
     | '/products/page/{-$page}'
   fileRoutesById: FileRoutesById
@@ -115,7 +115,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ProductsRoute: typeof ProductsRouteWithChildren
   ProductProductIdRoute: typeof ProductProductIdRoute
-  TaskTaskIdRoute: typeof TaskTaskIdRoute
+  QuoteQuoteIdRoute: typeof QuoteQuoteIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -148,11 +148,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsIndexRouteImport
       parentRoute: typeof ProductsRoute
     }
-    '/task/$taskId': {
-      id: '/task/$taskId'
-      path: '/task/$taskId'
-      fullPath: '/task/$taskId'
-      preLoaderRoute: typeof TaskTaskIdRouteImport
+    '/quote/$quoteId': {
+      id: '/quote/$quoteId'
+      path: '/quote/$quoteId'
+      fullPath: '/quote/$quoteId'
+      preLoaderRoute: typeof QuoteQuoteIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/product/$productId': {
@@ -191,7 +191,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ProductsRoute: ProductsRouteWithChildren,
   ProductProductIdRoute: ProductProductIdRoute,
-  TaskTaskIdRoute: TaskTaskIdRoute,
+  QuoteQuoteIdRoute: QuoteQuoteIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -7,9 +7,9 @@ export const Route = createRootRoute({
     <div className="w-screen h-screen flex flex-col items-stretch justify-center bg-background">
       <Menubar></Menubar>
       <div className="h-1 grow bg-card p-4 overflow-auto">
-        <Outlet />
+          <Outlet />
       </div>
       <TanStackRouterDevtools />
     </div>
-  ),
+  )
 });
