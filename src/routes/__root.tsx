@@ -1,5 +1,4 @@
 import { createRootRoute, Outlet, useLocation, type ParsedLocation } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { Menubar } from "../ui/Menubar";
 import { useEffect } from "react";
 

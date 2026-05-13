@@ -1,4 +1,4 @@
-import { createFileRoute, useLocation, useNavigate } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { type ComponentProps } from 'react';
 import z from 'zod';
 import { MyButton } from '../MyButton';
@@ -11,11 +11,6 @@ const paramsSchema = z.object({
   status: z.enum(["draft", "published", "archived"]).optional()
 });
 
-
-const searchSchema = z.object({
-  hl: z.coerce.boolean().catch(false),
-  sort: z.enum(["asc", "desc"]).optional()
-});
 
 
 // eslint-disable-next-line react-refresh/only-export-components

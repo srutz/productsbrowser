@@ -3,8 +3,8 @@ import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { routeTree } from "./routeTree.gen.ts";
-import { getQuote } from "./hooks/useQuote.tsx";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { ConfirmDialog } from "./ui/ConfirmDialog.tsx";
 
 // Set up a Router instance
 const router = createRouter({
@@ -12,6 +12,7 @@ const router = createRouter({
   defaultPreload: "intent",
   defaultStaleTime: 5000,
   scrollRestoration: true,
+  
 });
 
 declare module "@tanstack/react-router" {
@@ -34,5 +35,6 @@ createRoot(document.getElementById("root")!).render(
     <QueryClientProvider client={client}>
       <RouterProvider router={router} />
       <ReactQueryDevtools initialIsOpen={false} />
+      <ConfirmDialog />
     </QueryClientProvider>
 );
