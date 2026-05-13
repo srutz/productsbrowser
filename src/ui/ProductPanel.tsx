@@ -1,3 +1,4 @@
+import { cn } from "../lib/utils";
 import type { Product } from "../types";
 
 const priceFormatter = new Intl.NumberFormat("en-US", {
@@ -100,11 +101,11 @@ export function ProductPanel({ product }: { product: Product }) {
           {/* Stock Status */}
           <div className="mb-6">
             <div
-              className={`inline-block px-4 py-2 rounded-lg font-semibold ${
+              className={cn("inline-block px-4 py-2 rounded-lg font-semibold",
                 product.availabilityStatus === "In Stock"
                   ? "bg-green-100 text-green-700"
                   : "bg-red-100 text-red-700"
-              }`}
+                )}
             >
               {product.availabilityStatus}
             </div>
