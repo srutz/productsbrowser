@@ -1,13 +1,16 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, useLocation, useNavigate } from '@tanstack/react-router'
 import { type ComponentProps } from 'react';
 import z from 'zod';
 import { MyButton } from '../MyButton';
-import { useQuote, type QuoteType } from '../hooks/useQuote';
+import { getQuote, useQuote, type QuoteType } from '../hooks/useQuote';
 import { cn } from '../lib/utils';
+import { useQueryClient } from '@tanstack/react-query';
 
 const paramsSchema = z.object({
   quoteId: z.coerce.number().int(),
+  status: z.enum(["draft", "published", "archived"]).optional()
 });
+
 
 const searchSchema = z.object({
   hl: z.coerce.boolean().catch(false),
@@ -24,24 +27,51 @@ export const Route = createFileRoute('/quote/$quoteId')({
     },
     stringify: ({ quoteId }) => ({ quoteId: quoteId.toString() }),
   },
-  validateSearch: searchSchema,
 })
 
 // eslint-disable-next-line react-refresh/only-export-components
 function RouteComponent() {
   const { quoteId } = Route.useParams();
-  const search = Route.useSearch()
+  const navigate = useNavigate()
   const { data: quote } = useQuote(quoteId);
+  const queryClient = useQueryClient();
+  const handlePrev = () => {
+    navigate({
+      to: "/quote/$quoteId",
+      params: {
+        quoteId: Math.max(1, quoteId - 1),
+        status: "archived"
+      }
+    })
+    const preloadId = Math.max(quoteId - 2, 1)
+    queryClient.ensureQueryData({
+      queryKey: [ "quote", preloadId],
+      queryFn: () => getQuote(preloadId)
+    })
+  }
+  const handleNext = () => {
+    navigate({
+      to: "/quote/$quoteId",
+      params: {
+        quoteId: Math.min(99, quoteId + 1)
+      }
+    })
+    const preloadId = quoteId + 2
+    queryClient.ensureQueryData({
+      queryKey: [ "quote", preloadId],
+      queryFn: () => getQuote(preloadId)
+    })
+  }
   if (!quote) {
     return <div>Loading...</div>
   }
   return (
     <Vbox>
-        <Quote quote={quote}></Quote>
         <Hbox>
-          <MyButton>Prev</MyButton>
-          <MyButton>Next</MyButton>
+          <MyButton onClick={handlePrev}>Prev</MyButton>
+          <MyButton onClick={handleNext}>Next</MyButton>
         </Hbox>
+        <Quote quote={quote}></Quote>
     </Vbox>
     )
 }
