@@ -7,9 +7,6 @@ export function useQuote(id: number) {
         queryKey: [ "quote", id],
         queryFn: async () => getQuote(id),
         staleTime: 60 * 60 * 1_000,
-        // Always publish the newly fetched object so consumers rerender
-        // even when the server returns the same values.
-        structuralSharing: false,
     })
 }
 

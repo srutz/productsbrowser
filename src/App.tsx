@@ -1,46 +1,35 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import { useNavigate, useParams } from "react-router";
 import { MyButton } from "./MyButton";
 import { useQuote, useQuotesWarmup, type QuoteType } from "./useQuote";
 
-export function App() {
-  const [ id, setId ] = useState(1)
-  const warmupFunction = useQuotesWarmup()
-  const client = useQueryClient()
-  return (
-    <div
-      className="w-screen h-screen flex 
-    flex-col items-center justify-start p-4 gap-2"
-    >
-      <div className="flex gap-2 items-center">
-        <MyButton onClick={() => {
-            warmupFunction(id - 3, id - 2);
-            setId(id - 1)
-          }}>Prev</MyButton>
-        <div>{id}</div>
-        <MyButton onClick={() => {
-            warmupFunction(id + 2, id + 3);
-            setId(id + 1)
-        }}>Next</MyButton>
-      </div>
-      <QuoteDisplay id={id} />
-      <MyButton onClick={() => {
-        // post to server, then efresh
-        client.invalidateQueries({
-          queryKey: [ "quote" ]
-        }) 
-      }}>Reset</MyButton>
-    </div>
-  );
-}
-function QuoteDisplay({ id }: { id: number}) {
+
+export function QuoteDisplay() {
+  const { id: idStr } = useParams()
+  const id = Number.parseInt(idStr || "1")
   const { data: quote, isPending } = useQuote(id)
-  if (isPending) return <div>Lade noch..</div>
-  return quote && <QuoteRenderer quote={quote} />  
+  const warmup = useQuotesWarmup();
+  const navigate = useNavigate();
+  return (
+  <div className="flex flex-col gap-4">
+    <div className="flex gap-2 self-center">
+      <MyButton onClick={() => {
+        warmup(id - 2, id - 2)
+        navigate("/quotes/" + (Math.max(1, id - 1)))
+      }}>Prev</MyButton>
+      <MyButton onClick={() => {
+        warmup(id + 2, id + 2)
+        navigate("/quotes/" + (id + 1))}
+      }>Next</MyButton>
+    </div>
+    {isPending || !quote 
+      ? (<div>Lade noch..</div>)
+      : (<QuoteRenderer quote={quote} />)
+    }
+  </div>)
 }
 
 function QuoteRenderer({ quote } : { quote: QuoteType }) {
-  console.log("render quote")
   return (
 <div className="p-4 m-2 shadow-xl bg-zinc-200 flex flex-col gap-2">
     <div>{quote.quote}</div>
