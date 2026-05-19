@@ -18,6 +18,9 @@ export async function getQuote(id: number) {
   return await resp.json() as QuoteType
 }
 
+/*
+ returns a function that can be used to warmup the query cache
+ */
 export function useQuotesWarmup() {
     const client = useQueryClient()
     return (from: number, to: number) => {
