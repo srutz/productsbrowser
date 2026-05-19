@@ -43,11 +43,23 @@ function QuoteRenderer({ quote } : { quote: QuoteType }) {
   console.log("render quote")
   return (
 <div className="p-4 m-2 shadow-xl bg-zinc-200 flex flex-col gap-2">
-    <div className="self-end text-gray-400 text-sm">
-      Gerendert am: {new Date().toLocaleTimeString()}
-    </div>
     <div>{quote.quote}</div>
     <div className="self-end text-gray-400 text-sm">
       {quote.author}
     </div>
 </div>)}
+
+
+
+function Counter() {
+  const [ count, setCount ] = useState(1)
+  //const [ count, setCount ] = useLocalStorage("counter1", 1)
+  //const [ count, setCount ] = useQueryState("counter1", parseAsInteger.withDefault(1));
+  return (
+    <div className="flex gap-2 items-center">
+        <MyButton onClick={() => setCount(count - 1)}>Decrement</MyButton>
+      <div>{count}</div>
+      <MyButton onClick={() => setCount(count + 1)}>Increment</MyButton>
+    </div>
+  )
+}
