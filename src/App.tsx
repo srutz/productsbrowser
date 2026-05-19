@@ -5,19 +5,25 @@ import { useQuote, useQuotesWarmup, type QuoteType } from "./useQuote";
 
 export function App() {
   const [ id, setId ] = useState(1)
-  useQuotesWarmup(1, 20)
+  const warmupFunction = useQuotesWarmup()
   const client = useQueryClient()
   return (
     <div
       className="w-screen h-screen flex 
     flex-col items-center justify-start p-4 gap-2"
     >
-      <div className="flex gap-2">
-        <MyButton onClick={() => setId(id-1)}>Prev</MyButton>
-        <MyButton onClick={() => setId(id+1)}>Next</MyButton>
+      <div className="flex gap-2 items-center">
+        <MyButton onClick={() => {
+            warmupFunction(id - 3, id - 2);
+            setId(id - 1)
+          }}>Prev</MyButton>
+        <div>{id}</div>
+        <MyButton onClick={() => {
+            warmupFunction(id + 2, id + 3);
+            setId(id + 1)
+        }}>Next</MyButton>
       </div>
       <QuoteDisplay id={id} />
-      <QuoteDisplay id={3} />
       <MyButton onClick={() => {
         // post to server, then efresh
         client.invalidateQueries({

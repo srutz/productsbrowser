@@ -18,12 +18,14 @@ export async function getQuote(id: number) {
   return await resp.json() as QuoteType
 }
 
-export function useQuotesWarmup(from: number, to: number) {
+export function useQuotesWarmup() {
     const client = useQueryClient()
-    for (let id = from; id <= to; id++) {
-        client.ensureQueryData({
-            queryFn: () => getQuote(id),
-            queryKey: [ "quote", id]
-        })
+    return (from: number, to: number) => {
+        for (let id = from; id <= to; id++) {
+            client.ensureQueryData({
+                queryFn: () => getQuote(id),
+                queryKey: [ "quote", id]
+            })
+        }
     }
 }
