@@ -1,15 +1,14 @@
 /* eslint-disable react-refresh/only-export-components */
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { NuqsAdapter } from "nuqs/adapters/react";
-import { StrictMode, type ComponentProps } from "react";
+import { memo, StrictMode, useState, type ComponentProps } from "react";
 import { createRoot } from "react-dom/client";
 import { LuZap } from "react-icons/lu";
 import { createBrowserRouter, NavLink, Outlet, RouterProvider } from "react-router";
 import { QuoteDisplay } from "./App";
 import "./index.css";
 import { cn } from "./lib/utils";
-
+import { MyButton } from "./MyButton";
 const router = createBrowserRouter([{
   path: "/", element: <Root/>, children: [
     { path: "/", element: <Main/> },
@@ -20,14 +19,15 @@ const router = createBrowserRouter([{
   ]
 }])
 
+
 function Root() {
   return (
   <div className="w-screen h-screen bg-white flex flex-col gap-2">
     <Menubar></Menubar>
     <div className="grow p-4 overflow-y-auto"><Outlet/></div>
-    <Footer />
   </div>)
 }
+
 
 function Main() { return (<div>Hello to my app</div>)}
 
@@ -60,30 +60,62 @@ reactRoot.render(
       <QueryClientProvider client={client}>
         <RouterProvider router={router} />
       </QueryClientProvider>
-      <ReactQueryDevtools client={client}/>
     </NuqsAdapter>
   </StrictMode>,
 );
 
 
 function Form() {
+  const [ form, setForm ] = useState({
+    firstname: "",
+    email: "",   
+  })
+  const config = { complete: !!form.email && !!form.firstname}
+  console.log("render", form)
+  let valid = true
   return (<VBox className="gap-8">
     <VBox>
       <Label htmlFor="input1">Vorname</Label>
-      <Input aria-id="input1" placeholder="Vorname eingeben"></Input>
+      <Input id="input1" placeholder="Vorname eingeben" value={form.firstname}
+        onChange={(e) => setForm({
+          ...form,
+          firstname: e.currentTarget.value,
+        })}></Input>
+        {
+          (valid &&= form.firstname.length <= 3) && <div className="text-sm text-red-500">
+            Vorname zu kurz
+          </div>
+        }
     </VBox>
     <VBox className="shadow-xl">
-      <Label htmlFor="input2">E-Mail</Label>
-      <Input id="input2" placeholder="E-Mail eingeben" type="email"></Input>
+      <Label htmlFor="input2" >E-Mail</Label>
+      <Input id="input2" placeholder="E-Mail eingeben" type="email" value={form.email}
+        onChange={(e) => setForm({
+          ...form,
+          email: e.currentTarget.value,
+        })}></Input>
+    </VBox>
+    <VBox className="justify-end self-start">
+      <CompleteIndicator_ config={config} />
+      <MyButton disabled={valid}>Submit</MyButton>
     </VBox>
   </VBox>)}
 
-function Label({ type, ...props }: ComponentProps<"label"> & { type?: "warning" | "error" }) {
-  return (<label {...props} 
-    className={cn( 
-      type === "error" && "font-bold text-red-700",
-      type === "warning" && "text-green-700",
-    )}/>)
+const CompleteIndicator = memo(CompleteIndicator_, 
+  (prev, next) => prev.config.complete === next.config.complete
+)
+
+function CompleteIndicator_({ config }: { config: { complete: boolean } }) {
+  const complete = { config }
+  return (<div>Complete={complete ? "Ja" : "Nein"}</div>)
+}
+
+
+const Label = memo(Label_)
+
+function Label_({ ...props }: ComponentProps<"label">) {
+  console.log("render label")
+  return (<label {...props}>{props.children} {new Date().toLocaleTimeString()}</label>)
 }
 
 function Input({ className, ...props }: ComponentProps<"input">) {
@@ -93,6 +125,7 @@ function Input({ className, ...props }: ComponentProps<"input">) {
     </div>)
 }
 
+
 function VBox({ className, ...props }: ComponentProps<"div">) {
   return (<div {...props} className={cn("flex flex-col gap-2", className)} />
 )}
@@ -101,3 +134,22 @@ function HBox({ className, ...props }: ComponentProps<"div">) {
   return (<div {...props} className={cn("flex items-center gap-2", className)} />
 )}
 
+
+
+
+export function InputComponent() {
+    const [value, setValue] = useState('')
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setValue(event.target.value)
+    }
+
+    return (
+        <input type="text" value={value} onChange={handleChange} />
+    )
+}
+
+
+// useMemo()
+// useCallback()
+// memo()
