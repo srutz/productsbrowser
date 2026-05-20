@@ -6,6 +6,7 @@ import { createRoot } from "react-dom/client";
 import { LuZap } from "react-icons/lu";
 import { createBrowserRouter, NavLink, Outlet, RouterProvider } from "react-router";
 import { QuoteDisplay } from "./App";
+import { Clock } from "./Clock";
 import "./index.css";
 import { cn } from "./lib/utils";
 import { MyButton } from "./MyButton";
@@ -32,7 +33,7 @@ function Root() {
 function Main() { return (<div>Hello to my app</div>)}
 
 function About() { 
-  return (<div>About </div>)
+  return (<div><Clock /></div>)
 }
 
 function Menubar() {

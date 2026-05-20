@@ -1,5 +1,7 @@
+import { useRef } from "react";
 import { useNavigate, useParams } from "react-router";
 import { MyButton } from "./MyButton";
+import { useFiberInspector } from "./useFiberInspector";
 import { useQuote, useQuotesWarmup, type QuoteType } from "./useQuote";
 
 
@@ -9,8 +11,10 @@ export function QuoteDisplay() {
   const { data: quote, isPending } = useQuote(id)
   const warmup = useQuotesWarmup();
   const navigate = useNavigate();
+  const ref = useRef<HTMLDivElement>(null);
+  useFiberInspector(ref);
   return (
-  <div className="flex flex-col gap-4">
+  <div ref={ref} className="flex flex-col gap-4">
     <div className="flex gap-2 self-center">
       <MyButton onClick={() => {
         warmup(id - 2, id - 2)
