@@ -1,4 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
+import "./reacthook";
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { NuqsAdapter } from "nuqs/adapters/react";
 import { memo, StrictMode, useState, type ComponentProps } from "react";

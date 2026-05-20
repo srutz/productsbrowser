@@ -1,3 +1,10 @@
+console.log("!!! Loading React DevTools hook")
+console.log("!!! Loading React DevTools hook")
+console.log("!!! Loading React DevTools hook")
+console.log("!!! Loading React DevTools hook")
+console.log("!!! Loading React DevTools hook")
+console.log("!!! Loading React DevTools hook")
+
 interface ReactDevToolsHook {
     onCommitFiberRoot?: (rendererID: number, root: { current: unknown }, priority?: number, didError?: boolean) => void
     onCommitFiberUnmount?: (rendererID: number, fiber: unknown) => void
