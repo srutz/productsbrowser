@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { MyButton } from "./MyButton";
 import { useQuote, useQuotesWarmup, type QuoteType } from "./useQuote";
@@ -40,15 +39,3 @@ function QuoteRenderer({ quote } : { quote: QuoteType }) {
 
 
 
-function Counter() {
-  const [ count, setCount ] = useState(1)
-  //const [ count, setCount ] = useLocalStorage("counter1", 1)
-  //const [ count, setCount ] = useQueryState("counter1", parseAsInteger.withDefault(1));
-  return (
-    <div className="flex gap-2 items-center">
-        <MyButton onClick={() => setCount(count - 1)}>Decrement</MyButton>
-      <div>{count}</div>
-      <MyButton onClick={() => setCount(count + 1)}>Increment</MyButton>
-    </div>
-  )
-}

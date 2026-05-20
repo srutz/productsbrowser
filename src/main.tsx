@@ -32,7 +32,7 @@ function Root() {
 function Main() { return (<div>Hello to my app</div>)}
 
 function About() { 
-  return (<div>About this app</div>)
+  return (<div>About </div>)
 }
 
 function Menubar() {
@@ -46,10 +46,6 @@ function Menubar() {
     </div>)
 }
 
-function Footer() {
-  return <div className="border-t border-gray-400 py-2 px-4 bg-zinc-100 
-    flex justify-end">Greetings from Köln</div>
-}
 
 const client = new QueryClient();
 const rootElement = document.getElementById("root") as HTMLElement;
@@ -101,13 +97,20 @@ function Form() {
     </VBox>
   </VBox>)}
 
-const CompleteIndicator = memo(CompleteIndicator_, 
+export const CompleteIndicator = memo(CompleteIndicator_, 
   (prev, next) => prev.config.complete === next.config.complete
 )
 
 function CompleteIndicator_({ config }: { config: { complete: boolean } }) {
-  const complete = { config }
-  return (<div>Complete={complete ? "Ja" : "Nein"}</div>)
+  const { complete } = config
+  console.log("render complete indicator", complete)
+  return (<div><TagChild/>Complete={complete ? "Ja" : "Nein"}</div>)
+}
+
+function TagChild() {
+  "use no memo"
+  console.log("render tag child")
+  return (<span className="text-sm text-red-500">[TagChild] </span>)
 }
 
 
@@ -126,11 +129,11 @@ function Input({ className, ...props }: ComponentProps<"input">) {
 }
 
 
-function VBox({ className, ...props }: ComponentProps<"div">) {
+export function VBox({ className, ...props }: ComponentProps<"div">) {
   return (<div {...props} className={cn("flex flex-col gap-2", className)} />
 )}
 
-function HBox({ className, ...props }: ComponentProps<"div">) {
+export function HBox({ className, ...props }: ComponentProps<"div">) {
   return (<div {...props} className={cn("flex items-center gap-2", className)} />
 )}
 
