@@ -1,4 +1,4 @@
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate } from "react-router";
 import { PAGE_SIZE, useRecipes } from "../hooks/useRecipes";
 import type { Recipe } from "../types";
 import { Pager } from "./Pager";
@@ -8,7 +8,7 @@ export function RecipesGrid({ page }: { page: number }) {
   const { data: recipesResponse } = useRecipes({ page });
   const navigate = useNavigate();
   const handleRecipeClick = (recipe: Recipe) => {
-    navigate({ to: "/recipe/$recipeId", params: { recipeId: recipe.id } });
+    navigate("/recipe/" + recipe.id);
   };
   const totalPages = Math.max(1, Math.ceil(recipesResponse.total / PAGE_SIZE));
   return (
@@ -28,7 +28,7 @@ export function RecipesGrid({ page }: { page: number }) {
         page={page}
         totalPages={totalPages}
         onNavigate={(p) =>
-          navigate({ to: "/recipes/page/{-$page}", params: { page: p } })
+          navigate("/recipes/page/" + p)
         }
       />
     </div>

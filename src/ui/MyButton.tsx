@@ -1,5 +1,5 @@
 import type { ComponentProps, ReactNode } from "react";
-import { cn } from "./lib/utils";
+import { cn } from "../lib/utils";
 
 /*
  * a button component that accepts all the props of a regular button incl. children.
