@@ -13,6 +13,13 @@ export function RecipesGrid({ page }: { page: number }) {
   const totalPages = Math.max(1, Math.ceil(recipesResponse.total / PAGE_SIZE));
   return (
     <div className="grow flex flex-col gap-4">
+      <Pager
+        page={page}
+        totalPages={totalPages}
+        onNavigate={(p) =>
+          navigate("/recipes/page/" + p)
+        }
+      />
       <div className="flex flex-wrap justify-center gap-4">
         {recipesResponse.recipes.map((recipe) => (
           <button
@@ -24,13 +31,6 @@ export function RecipesGrid({ page }: { page: number }) {
           </button>
         ))}
       </div>
-      <Pager
-        page={page}
-        totalPages={totalPages}
-        onNavigate={(p) =>
-          navigate("/recipes/page/" + p)
-        }
-      />
     </div>
   );
 }
