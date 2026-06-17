@@ -1,14 +1,17 @@
-import babel from "@rolldown/plugin-babel";
 import tailwindcss from "@tailwindcss/vite";
-import react, { reactCompilerPreset } from "@vitejs/plugin-react";
+import react from "@vitejs/plugin-react";
 import path from "node:path";
+import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
-    babel({ presets: [reactCompilerPreset()] }),
+    visualizer({
+      open: true,
+    }),
+    //babel({ presets: [reactCompilerPreset()] }),
     tailwindcss(),
   ],
   resolve: {
@@ -18,7 +21,7 @@ export default defineConfig({
   },
   test: {
     environment: "jsdom",      // Browser-ähnliche Umgebung
-    globals:     true,         // describe, it, expect ohne import
-    setupFiles:  ["./src/setup.ts"],
+    globals: true,         // describe, it, expect ohne import
+    setupFiles: ["./src/setup.ts"],
   },
 });

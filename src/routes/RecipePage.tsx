@@ -5,7 +5,8 @@ import { RecipePanel } from "../ui/RecipePanel";
 
 export function RecipePage() {
   const navigate = useNavigate();
-  const { recipeId } = useParams();
+  const params = useParams();
+  const { recipeId } = params;
   const recipeIdNumber = parseInt(recipeId || "1");
   const { data: recipe } = useRecipe(recipeIdNumber);
   const go = (delta: number) => {
@@ -24,3 +25,6 @@ export function RecipePage() {
     </div >
   );
 }
+
+export { RecipePage as Component };
+

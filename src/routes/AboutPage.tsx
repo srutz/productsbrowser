@@ -2,9 +2,12 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { useState } from "react";
 
+console.log("PROCESSING ABOUT PAGE")
 
-export function AboutPage() {
+
+export function Component() {
   const [open, setOpen] = useState(false);
+
   return (
     <div className="flex flex-col items-center gap-2">
       <Button onClick={() => setOpen(!open)}>Toggle sheet</Button>
@@ -20,4 +23,5 @@ export function AboutPage() {
   );
 }
 
+//export { AboutPage as Component };
 

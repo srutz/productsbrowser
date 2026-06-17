@@ -7,14 +7,16 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import "./index.css";
-import { AboutPage } from "./routes/AboutPage.tsx";
+
 import { HomePage } from "./routes/HomePage.tsx";
-import { RecipePage } from "./routes/RecipePage.tsx";
-import { RecipesPage } from "./routes/RecipesPage.tsx";
 import { RootPage } from "./routes/RootPage.tsx";
 import { ConfirmDialog } from "./ui/ConfirmDialog.tsx";
 
+
 // Set up a Router instance
+
+// /recipe/3
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -22,33 +24,33 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <HomePage />
+        element: <HomePage />,
       },
       {
         path: "recipes/page/:page",
-        element: <RecipesPage />
+        //element: <RecipesPage />
+        lazy: () => import("./routes/RecipesPage.tsx")
       },
       {
         path: "recipe/:recipeId",
-        element: <RecipePage />
+        //element: <RecipePage />
+        lazy: () => import("./routes/RecipePage.tsx")
       },
       {
         path: "about",
-        element: <AboutPage />
-      }
+        //lazy: function () { return import("./routes/AboutPage") }
+        lazy: () => import("./routes/AboutPage")
+      },
+      {
+        path: "*",
+        element: <div>Wir haben diesen Content nicht</div>
+      },
     ]
-  }
+  },
 ]);
 
 const client = new QueryClient();
-/*
-for (let i = 40; i < 60; i++) {
-  client.ensureQueryData({
-    queryKey: [ "quote", i ],
-    queryFn: () => getQuote(i)
-  })
-}
-*/
+
 
 createRoot(document.getElementById("root")!).render(
   <QueryClientProvider client={client}>
