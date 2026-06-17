@@ -1,7 +1,8 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { getRecipe } from "./useRecipe";
+import { preloadImage } from "../lib/preloadImage";
 
-/* this method is used to prefetch recipes and their images when the user is browsing the recipes list. 
+/* this method is used to prefetch recipes and their images when the user is browsing the recipes list.
  */
 export function usePrefetchRecipeAndImage() {
   const queryClient = useQueryClient();
@@ -13,8 +14,7 @@ export function usePrefetchRecipeAndImage() {
           queryFn: ({ signal }) => getRecipe(id, signal),
         });
         if (recipe) {
-          const image = new Image();
-          image.src = recipe.image;
+          preloadImage(recipe.image);
         }
         console.log("prefetched recipe " + id);
         await delay(100); // avoid being blocked

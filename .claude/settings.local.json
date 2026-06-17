@@ -4,7 +4,11 @@
       "Bash(curl -sL https://github.com/TanStack/router/security/advisories/GHSA-g7cv-rxg3-hmpx)",
       "Bash(gh api *)",
       "WebFetch(domain:github.com)",
-      "Bash(npx vitest *)"
+      "Bash(npx vitest *)",
+      "Bash(xargs -I {} git show {}:src/hooks/useProducts.ts)",
+      "Bash(git show *)",
+      "Bash(xargs -I {} git show {}:src/ui/ProductPanel.tsx)",
+      "Bash(xargs -I {} git show {}:src/routes/products.tsx)"
     ]
   }
 }
