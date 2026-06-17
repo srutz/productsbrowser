@@ -1,4 +1,5 @@
 import type { Recipe } from "../types";
+import { getCachedImageSrc } from "../lib/preloadImage";
 
 export function RecipeThumb({ recipe }: { recipe: Recipe }) {
   const totalTime = recipe.prepTimeMinutes + recipe.cookTimeMinutes;
@@ -7,7 +8,7 @@ export function RecipeThumb({ recipe }: { recipe: Recipe }) {
     <div className="bg-white rounded-lg shadow hover:shadow-lg transition-shadow overflow-hidden flex flex-col w-48">
       <div className="relative">
         <img
-          src={recipe.image}
+          src={getCachedImageSrc(recipe.image)}
           alt={recipe.name}
           className="w-full h-40 object-cover"
         />

@@ -1,4 +1,5 @@
 import type { Recipe } from "../types";
+import { getCachedImageSrc } from "../lib/preloadImage";
 
 export function RecipePanel({ recipe }: { recipe: Recipe }) {
   const totalTime = recipe.prepTimeMinutes + recipe.cookTimeMinutes;
@@ -8,7 +9,7 @@ export function RecipePanel({ recipe }: { recipe: Recipe }) {
       <div className="grid md:grid-cols-2 gap-2">
         <div className="relative">
           <img
-            src={recipe.image}
+            src={getCachedImageSrc(recipe.image)}
             alt={recipe.name}
             className="w-full h-96 object-cover"
           />
