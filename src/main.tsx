@@ -8,6 +8,7 @@ import { LuZap } from "react-icons/lu";
 import { createBrowserRouter, NavLink, Outlet, RouterProvider } from "react-router";
 import "./index.css";
 import { Home } from "./Home";
+import { useWindowSize } from "./WindowSize";
 
 
 const router = createBrowserRouter([{
@@ -31,11 +32,13 @@ function About() {
 }
 
 function Menubar() {
+  const size = useWindowSize()
   return (
     <div className="flex gap-4 p-4 border-b border-gray-400 bg-zinc-100 items-center">
       <LuZap size={32}></LuZap>
       <NavLink to="/">Home</NavLink>
       <NavLink to="/about">About</NavLink>
+      {size.width < 400 && <div>MAch mal breiter</div>}
     </div>)
 }
 
