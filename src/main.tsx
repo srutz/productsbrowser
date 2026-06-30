@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider, useQueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { NuqsAdapter } from "nuqs/adapters/react";
 import { StrictMode } from "react";
@@ -7,7 +7,7 @@ import { createRoot } from "react-dom/client";
 import { LuZap } from "react-icons/lu";
 import { createBrowserRouter, NavLink, Outlet, RouterProvider } from "react-router";
 import "./index.css";
-import { Home } from "./Home";
+import { Home, usePrefetchQuotes } from "./Home";
 import { useWindowSize } from "./WindowSize";
 
 
@@ -19,6 +19,7 @@ const router = createBrowserRouter([{
 }])
 
 function Root() {
+  usePrefetchQuotes(10);
   return (
   <div className="w-screen h-screen bg-white flex flex-col gap-2">
     <Menubar></Menubar>
@@ -28,7 +29,11 @@ function Root() {
 }
 
 function About() { 
-  return (<div>About this app</div>)
+  const client = useQueryClient();
+  return (
+    <div>About this app
+      <button className="mybutton" onClick={() => client.invalidateQueries({ queryKey: ["quotes"]})}>Invalidate Quotes</button>
+    </div>)
 }
 
 function Menubar() {
