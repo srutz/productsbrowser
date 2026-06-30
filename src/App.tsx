@@ -4,6 +4,10 @@ import { MyButton } from "./MyButton";
 import { useQuote, useQuotesWarmup, type QuoteType } from "./useQuote";
 
 
+
+console.log("hello")
+
+
 export function QuoteDisplay() {
   const { id: idStr } = useParams()
   const id = Number.parseInt(idStr || "1")

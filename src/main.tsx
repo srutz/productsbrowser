@@ -2,9 +2,10 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { NuqsAdapter } from "nuqs/adapters/react";
-import { StrictMode, type ComponentProps } from "react";
+import { StrictMode, useEffect, type ComponentProps, type CSSProperties, type ReactNode } from "react";
 import { createRoot } from "react-dom/client";
-import { LuZap } from "react-icons/lu";
+
+import * as AllIcons from "react-icons/lu";
 import { createBrowserRouter, NavLink, Outlet, RouterProvider } from "react-router";
 import { QuoteDisplay } from "./App";
 import "./index.css";
@@ -38,11 +39,12 @@ function About() {
 function Menubar() {
   return (
     <div className="flex gap-4 p-4 border-b border-gray-400 bg-zinc-100 items-center">
-      <LuZap size={32}></LuZap>
+      <AllIcons.LuZap size={32}></AllIcons.LuZap>
       <NavLink to="/">Home</NavLink>
       <NavLink to="/quotes">Quotes</NavLink>
       <NavLink to="/form">Form</NavLink>
       <NavLink to="/about">About</NavLink>
+      <AllIcons.LuAlarmClock size={64}></AllIcons.LuAlarmClock>
     </div>)
 }
 
@@ -101,3 +103,44 @@ function HBox({ className, ...props }: ComponentProps<"div">) {
   return (<div {...props} className={cn("flex items-center gap-2", className)} />
 )}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export function BigText({style = {fontSize: 20}, children} : {
+    style: CSSProperties,
+    children: string
+}) {
+    let r : string;
+    if (children.length > 10) {
+      r = children
+    } else {
+      r = 'Text zu kurz'
+    }
+    return <div style={{
+      alignItems: "center",
+    }}>{r}"
+      <H1>Mein Überschrift</H1>
+    </div>;
+}
+
+
+function H1({ children }: { children?: ReactNode}) {
+  return (
+    <h1>
+     {new Date().toString()} / {children}
+    </h1>
+  )
+
+}
