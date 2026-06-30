@@ -7,11 +7,12 @@ import { createRoot } from "react-dom/client";
 import { LuZap } from "react-icons/lu";
 import { createBrowserRouter, NavLink, Outlet, RouterProvider } from "react-router";
 import "./index.css";
+import { Home } from "./Home";
 
 
 const router = createBrowserRouter([{
   path: "/", element: <Root/>, children: [
-    { path: "/", element: <Main/> },
+    { path: "/", element: <Home/> },
     { path: "/about", element: <About/> },
   ]
 }])
@@ -24,8 +25,6 @@ function Root() {
     <Footer />
   </div>)
 }
-
-function Main() { return (<div>Hello to my app</div>)}
 
 function About() { 
   return (<div>About this app</div>)
