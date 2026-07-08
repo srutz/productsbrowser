@@ -7,7 +7,7 @@ function multiply(a: number, b: number) {
     return a * b;
 }
 
-function fib(n: number) {
+function fib(n: number): number {
     return n <= 2 ? 1 : fib(n - 1) + fib(n - 2)
 }
 
